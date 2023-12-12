@@ -1,8 +1,11 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import {TextField, Button, Typography} from "@mui/material";
 import style from './style.module.css';
 
-const LoginPage = () => {
+const LoginPage = (props: any) => {
+
+    const {setEmail, setPassword} = props;
+
     return (
         <>
             <Typography variant="h2" fontFamily='Poppins' textAlign='center'>
@@ -12,6 +15,7 @@ const LoginPage = () => {
                 Введите ваш логин и пароль
             </Typography>
             <TextField
+                onChange={(e) => setEmail(e.target.value)}
                 fullWidth={true}
                 margin='normal'
                 label="Email"
@@ -19,6 +23,7 @@ const LoginPage = () => {
                 placeholder="Введите ваш email"
             />
             <TextField
+                onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 fullWidth={true}
                 margin='normal'
@@ -26,7 +31,7 @@ const LoginPage = () => {
                 variant="outlined"
                 placeholder="Введите ваш пароль"
             />
-            <Button sx={{fontFamily:'Poppins', marginTop: 2, marginBottom: 2, width:'60%'}}  variant="contained">Войти</Button>
+            <Button type="submit" sx={{fontFamily:'Poppins', marginTop: 2, marginBottom: 2, width:'60%'}}  variant="contained">Войти</Button>
             <Typography
                 variant="body1"
                 sx={{fontFamily:'Poppins',}}

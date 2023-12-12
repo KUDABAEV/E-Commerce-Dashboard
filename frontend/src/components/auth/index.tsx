@@ -7,11 +7,18 @@ import {Box} from "@mui/material";
 
 const AuthRootComponent = () => {
 
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
     const location = useLocation();
+
+    const handleSubmit = async (e: {preventDefault: () => void}) => {
+        e.preventDefault()
+        console.log(email)
+    }
 
     return (
         <div className='root'>
-            <div className="form">
+            <form className="form" onSubmit={handleSubmit}>
                 <Box
                     display='flex'
                     justifyContent='center'
@@ -23,9 +30,17 @@ const AuthRootComponent = () => {
                     borderRadius={5}
                     boxShadow={'5px 5px 10px #ccc'}
                 >
-                    {location.pathname === '/login' ? <LoginPage /> : location.pathname === '/register' ? <RegisterPage /> : null}
+                    {location.pathname === '/login'
+                        ? <LoginPage
+                            setEmail={setEmail}
+                            setPassword={setPassword}
+                        />
+                        : location.pathname === '/register'
+                            ? <RegisterPage/>
+                            : null
+                    }
                 </Box>
-            </div>
+            </form>
         </div>
     )
 

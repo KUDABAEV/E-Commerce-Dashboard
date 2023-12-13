@@ -7,20 +7,38 @@ import {instance} from "../../utils/axios";
 import './style.scss';
 
 
-const AuthRootComponent = () => {
+const AuthRootComponent: React.FC = (): JSX.Element => {
 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [repeatPassword, setRepeatPassword] = React.useState('');
+    const [firstName, setFirstName] = React.useState('');
+    const [username, setUsername] = React.useState('');
     const location = useLocation();
 
-    const handleSubmit = async (e: {preventDefault: () => void}) => {
-        e.preventDefault()
-        const userData = {
-            email,
-            password,
+    const handleSubmit = async (e: { preventDefault: () => void }) => {
+        e.preventDefault();
+        if (location.pathname === '/login') {
+            const userData = {
+                email,
+                password,
+            }
+            const user = await instance.post('auth/login', userData)
+            console.log(user.data)
+        } else {
+            if (password === repeatPassword) {
+                const userData = {
+                    firstName,
+                    username,
+                    email,
+                    password: "qwerty1234"
+                }
+                const newUser = await instance.post('auth/register', userData)
+                console.log(newUser)
+            }else {
+                throw new Error('У вас не совпадает пароли')
+            }
         }
-        const user = await instance.post('auth/login', userData)
-        console.log(user.data)
     }
 
     return (
@@ -43,7 +61,13 @@ const AuthRootComponent = () => {
                             setPassword={setPassword}
                         />
                         : location.pathname === '/register'
-                            ? <RegisterPage/>
+                            ? <RegisterPage
+                                setEmail={setEmail}
+                                setPassword={setPassword}
+                                setRepeatPassword={setRepeatPassword}
+                                setFirstName={setFirstName}
+                                setUsername={setUsername}
+                            />
                             : null
                     }
                 </Box>

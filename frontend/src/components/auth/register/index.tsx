@@ -1,7 +1,11 @@
 import React from 'react';
 import {Button, TextField, Typography} from "@mui/material";
+import {IPropsRegister} from "../../../common/types/auth";
 
-const RegisterPage = () => {
+const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Element => {
+
+    const {setEmail, setPassword, setRepeatPassword, setFirstName, setUsername} = props;
+
     return (
         <>
             <Typography variant="h2" fontFamily='Poppins' textAlign='center'>
@@ -11,6 +15,7 @@ const RegisterPage = () => {
                 Введите данные для регистрации
             </Typography>
             <TextField
+                onChange={(e) => setFirstName(e.target.value)}
                 fullWidth={true}
                 margin='normal'
                 label="Имя"
@@ -18,6 +23,7 @@ const RegisterPage = () => {
                 placeholder="Введите ваше имя"
             />
             <TextField
+                onChange={(e) => setUsername(e.target.value)}
                 fullWidth={true}
                 margin='normal'
                 label="Username"
@@ -25,6 +31,7 @@ const RegisterPage = () => {
                 placeholder="Введите ваш username"
             />
             <TextField
+                onChange={(e) => setEmail(e.target.value)}
                 fullWidth={true}
                 margin='normal'
                 label="Email"
@@ -32,6 +39,7 @@ const RegisterPage = () => {
                 placeholder="Введите ваш email"
             />
             <TextField
+                onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 fullWidth={true}
                 margin='normal'
@@ -40,6 +48,7 @@ const RegisterPage = () => {
                 placeholder="Введите ваш пароль"
             />
             <TextField
+                onChange={(e) => setRepeatPassword(e.target.value)}
                 type="password"
                 fullWidth={true}
                 margin='normal'
@@ -47,7 +56,7 @@ const RegisterPage = () => {
                 variant="outlined"
                 placeholder="Повторите ваш пароль"
             />
-            <Button sx={{fontFamily:'Poppins', marginTop: 2, marginBottom: 2, width:'60%'}}  variant="contained">Регистрация</Button>
+            <Button type='submit' sx={{fontFamily:'Poppins', marginTop: 2, marginBottom: 2, width:'60%'}}  variant="contained">Регистрация</Button>
             <Typography
                 variant="body1"
                 sx={{fontFamily:'Poppins',}}
